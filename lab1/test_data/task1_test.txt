@@ -1,0 +1,63 @@
+Флаг -h
+
+./task1.out 7 -h
+./task1.out 100 -h
+./task1.out 101 -h
+./task1.out 1 -h
+
+
+Флаг -p
+
+./task1.out 2 -p
+./task1.out 4 -p
+./task1.out 1 -p
+./task1.out 97 -p
+
+
+Флаг -s
+
+./task1.out 255 -s
+./task1.out 16 -s
+./task1.out 1 -s
+./task1.out 4096 -s
+
+
+Флаг -e
+
+./task1.out 2 -e
+./task1.out 10 -e
+
+
+Флаг -a
+
+./task1.out 10 -a
+./task1.out 1 -a
+./task1.out 100 -a
+
+
+Флаг -f
+
+./task1.out 5 -f
+./task1.out 1 -f
+./task1.out 20 -f
+
+
+
+
+./task1.out 0 -h
+
+./task1.out -5 -p
+
+./task1.out abc -s
+
+./task1.out 11 -e
+
+./task1.out 21 -f
+
+./task1.out 5 -x
+
+./task1.out 5 --h
+
+./task1.out
+
+./task1.out 5

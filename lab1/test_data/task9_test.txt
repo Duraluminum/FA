@@ -1,0 +1,9 @@
+./task9.out 10 1
+./task9.out abc 10
+./task9.out 10 abc
+./task9.out 2147483648 10
+
+./task9.out 1 10
+./task9.out -5 5
+./task9.out 0 0
+./task9.out -2147483648 2147483647

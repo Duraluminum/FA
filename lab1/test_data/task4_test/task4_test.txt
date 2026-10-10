@@ -1,0 +1,16 @@
+./task4.out
+./task4.out -d
+./task4.out -x input.txt
+./task4.out -n input.txt
+./task4.out -nd input.txt
+
+
+./task4.out -d input.txt
+./task4.out -i input.txt
+./task4.out -s input.txt
+./task4.out -a input.txt
+./task4.out -nd input.txt result_d.txt
+./task4.out -ni input.txt result_i.txt
+./task4.out -ns input.txt result_s.txt
+./task4.out -na input.txt result_a.txt
+./task4.out -d empty.txt

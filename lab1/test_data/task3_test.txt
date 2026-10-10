@@ -1,0 +1,40 @@
+./task3.out
+./task3.out -x 1 2 3
+./task3.out q 0.001 1 2 3
+./task3.out -q 0.001 1 2
+./task3.out -q 0.001 abc 2 3
+./task3.out -q -0.001 1 2 3
+./task3.out -m 5 0
+./task3.out -m 10
+./task3.out -m 10 abc
+./task3.out -t 0.001 -3 4 5
+./task3.out -t 0.001 0 4 5
+./task3.out -t 0.001 3 4
+./task3.out -t 0.001 3 abc 5
+
+
+Флаг -q
+
+./task3.out -q 0.001 1 -5 6
+./task3.out -q 0.001 1 -2 1
+./task3.out -q 0.001 1 0 1
+./task3.out -q 0.001 2 2 2
+./task3.out -q 0.001 0 2 -4
+
+
+Флаг -m
+
+./task3.out -m 12 4
+./task3.out -m -7 3
+./task3.out -m -20 -4
+
+
+Флаг -t
+
+./task3.out -t 0.001 3 4 5
+./task3.out -t 0.001 5 3 4
+./task3.out -t 0.001 5 5 5
+./task3.out -t 0.001 2 3 4
+./task3.out -t 0.001 1 2 10
+./task3.out -t 0.001 5 12 13
+./task3.out -t 0.0001 0.3 0.4 0.5

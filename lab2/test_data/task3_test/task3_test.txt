@@ -1,0 +1,7 @@
+./task3.out 'a  af.  rv' ../test_data/task3_test/search_test1.txt ../test_data/task3_test/search_test2.txt ../test_data/task3_test/search_test3.txt
+./task3.out alpha ../test_data/task3_test/search_test1.txt ../test_data/task3_test/search_test2.txt ../test_data/task3_test/search_test3.txt
+./task3.out labbuba ../test_data/task3_test/search_test1.txt ../test_data/task3_test/search_test2.txt ../test_data/task3_test/search_test3.txt
+
+
+./task3.out '' ../test_data/task3_test/search_test1.txt
+./task3.out sddfg ../test_data/task3_test/missing.txt

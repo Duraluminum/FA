@@ -1,0 +1,9 @@
+printf '4 10\na 6 8\nb 4 6\nc 5 5\nd 3 4\n' | ./task4.out
+printf '3 0\na 1 10\nb 2 5\nc 3 4\n' | ./task4.out
+printf '3 6\na 5 3\nb 7 100\nc 8 80\n' | ./task4.out
+
+
+printf '0 10\n' | ./task4.out
+printf '1 -1\na 1 5\n' | ./task4.out
+printf '1 10\na 0 5\n' | ./task4.out
+printf '1 10\na 1 5 52\n' | ./task4.out

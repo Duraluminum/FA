@@ -1,0 +1,9 @@
+./task8.out 16 FFFFFFFFFFFFFFFFFFFFFFFFF F 1
+./task8.out 2 001 01 1
+./task8.out 36 ZZZZZZZZZZZZZZZZZZZ ABCDEF
+
+
+./task8.out
+./task8.out 1 100
+./task8.out 2 102
+./task8.out 16 -FF

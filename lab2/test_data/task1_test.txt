@@ -1,0 +1,26 @@
+Флаг -l
+./task1.out -l aa3vxx
+./task1.out -l ''
+
+Флаг -r
+./task1.out -r a,sdfgA
+
+Флаг -u
+./task1.out -u aaBcdDef
+
+Флаг -n
+./task1.out -n ,a1.b20
+
+Флаг -c
+./task1.out -c base 2026 one two three four
+./task1.out -c qwerty123 17 cola coca 52
+./task1.out -c qwerty12345 3 cola coca 52
+
+
+./task1.out
+./task1.out -x text
+./task1.out --l text
+./task1.out -l text 123
+./task1.out -c base
+./task1.out -c base -1 alpha
+./task1.out -c base 42949672960 alpha

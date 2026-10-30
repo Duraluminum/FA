@@ -1,0 +1,7 @@
+./task2.out ../test_data/task2_test/task2_input.txt -a ../test_data/task2_sorted_a.txt
+./task2.out ../test_data/task2_test/task2_input.txt -d ../test_data/task2_sorted_d.txt
+
+
+./task2.out ../test_data/missing.txt -a ../test_data/result.txt
+./task2.out ../test_data/task2_test/task2_input.txt -x ../test_data/result.txt
+./task2.out ../test_data/task2_test/task2_input.txt -a

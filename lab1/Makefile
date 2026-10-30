@@ -15,7 +15,7 @@ $(BUILD_DIR):
 
 define TASK_RULE
 $(BUILD_DIR)/task$(1).out: $$(wildcard $(SRC_DIR)/task$(1)/*.c) | $(BUILD_DIR)
-	$$(CC) $$(CFLAGS) -o $$@ $$^
+	$$(CC) $$(CFLAGS) -o $$@ $$^ -lm
 endef
 
 $(foreach task,$(TASKS),$(eval $(call TASK_RULE,$(task))))

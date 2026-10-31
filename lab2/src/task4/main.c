@@ -3,37 +3,36 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdint.h>
-#include <limits.h>
 #include "backup.h"
 
 
 int main(void) {
-    char token[256];
-    unsigned long long raw_n, raw_capacity;
-    size_t n, capacity;
+    char *line = NULL, *tokens[4];
+    unsigned long long raw_n, raw_capacity, raw_size, importance;
+    size_t n, capacity, token_count;
     BackupFile *files = NULL;
     BackupResult result = {NULL, 0, 0, 0};
     BackupStatus status;
-    
     int read_status;
-    read_status = read_token(token, sizeof(token));
-    if (read_status != 1 || !parse_unsigned(token, &raw_n) || raw_n == 0 || raw_n > SIZE_MAX) {
-        fprintf(stderr, "Invalid number of files\n");
+
+    read_status = read_line(&line);
+    if (read_status != 1 || (token_count = split_line(line, tokens, 2)) != 2 ||
+        !parse_unsigned(tokens[0], &raw_n) || raw_n == 0 || raw_n > SIZE_MAX || raw_n > 1000000U) {
+        fprintf(stderr, "Invalid first line\n");
+        free(line);
         return 1;
     }
 
-    read_status = read_token(token, sizeof(token));
-    if (read_status != 1 || !parse_unsigned(token, &raw_capacity) || raw_capacity > SIZE_MAX) {
+    if (!parse_unsigned(tokens[1], &raw_capacity) || raw_capacity > SIZE_MAX) {
         fprintf(stderr, "Invalid capacity\n");
+        free(line);
         return 1;
     }
 
     n = (size_t)raw_n;
     capacity = (size_t)raw_capacity;
-    if (n > SIZE_MAX / sizeof(BackupFile) || n > 1000000U) {
-        fprintf(stderr, "Too many files\n");
-        return 1;
-    }
+    free(line);
+    line = NULL;
 
     files = calloc(n, sizeof(BackupFile));
     if (files == NULL) {
@@ -42,38 +41,49 @@ int main(void) {
     }
 
     for (size_t i = 0; i < n; i++) {
-        unsigned long long raw_size, importance;
-
-        read_status = read_dynamic_token(&files[i].name);
-        if (read_status != 1 || files[i].name[0] == '\0') {
-            fprintf(stderr, "Invalid filename\n");
+        read_status = read_line(&line);
+        if (read_status != 1 || split_line(line, tokens, 3) != 3) {
+            fprintf(stderr, "Invalid file description\n");
+            free(line);
             free_backup_files(files, n);
             return 1;
         }
 
-        read_status = read_token(token, sizeof(token));
-        if (read_status != 1 || !parse_unsigned(token, &raw_size) || raw_size == 0 || raw_size > SIZE_MAX) {
+        files[i].name = copy_name(tokens[0]);
+        if (files[i].name == NULL) {
+            fprintf(stderr, "Memory allocation error\n");
+            free(line);
+            free_backup_files(files, n);
+            return 1;
+        }
+
+        for (size_t j = 0; j < i; j++) {
+            if (strcmp(files[i].name, files[j].name) == 0) {
+                fprintf(stderr, "Duplicate filename\n");
+                free(line);
+                free_backup_files(files, n);
+                return 1;
+            }
+        }
+
+        if (!parse_unsigned(tokens[1], &raw_size) || raw_size == 0 || raw_size > SIZE_MAX) {
             fprintf(stderr, "Invalid file size\n");
+            free(line);
             free_backup_files(files, n);
             return 1;
         }
 
-        read_status = read_token(token, sizeof(token));
-        if (read_status != 1 || !parse_unsigned(token, &importance)) {
+        if (!parse_unsigned(tokens[2], &importance)) {
             fprintf(stderr, "Invalid file importance\n");
+            free(line);
             free_backup_files(files, n);
             return 1;
         }
-        
+
         files[i].size = (size_t)raw_size;
         files[i].importance = importance;
-    }
-
-    read_status = read_token(token, sizeof(token));
-    if (read_status != 0) {
-        fprintf(stderr, "Unexpected extra input\n");
-        free_backup_files(files, n);
-        return 1;
+        free(line);
+        line = NULL;
     }
 
     status = choose_files(files, n, capacity, &result);
@@ -83,15 +93,27 @@ int main(void) {
         return 1;
     }
 
-    printf("TOTAL_SIZE %zu\n", result.total_size);
-    printf("TOTAL_IMPORTANCE %llu\n", result.total_importance);
-    printf("FILES %zu\n", result.count);
+    if (printf("TOTAL_SIZE %zu\n", result.total_size) < 0 ||
+            printf("TOTAL_IMPORTANCE %llu\n", result.total_importance) < 0 ||
+            printf("FILES %zu\n", result.count) < 0) {
 
-    for (size_t i = 0; i < result.count; i++)
-        printf("%s\n", result.files[i].name);
-    
+        fprintf(stderr, "Output error\n");
+        free_backup_result(&result);
+        free_backup_files(files, n);
+        
+        return 1;
+    }
+
+    for (size_t i = 0; i < result.count; i++) {
+        if (printf("%s\n", result.files[i].name) < 0) {
+            fprintf(stderr, "Output error\n");
+            free_backup_result(&result);
+            free_backup_files(files, n);
+            return 1;
+        }
+    }
+
     free_backup_result(&result);
     free_backup_files(files, n);
-
     return 0;
 }

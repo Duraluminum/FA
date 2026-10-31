@@ -2,7 +2,6 @@
 #define BACKUP_H
 
 #include <stddef.h>
-#include <stdint.h>
 
 
 typedef enum {
@@ -29,9 +28,9 @@ typedef struct {
 } BackupResult;
 
 int parse_unsigned(const char *text, unsigned long long *value);
-int read_token(char *token, size_t size);
-int read_dynamic_token(char **token);
-
+int read_line(char **line);
+size_t split_line(char *line, char **tokens, size_t limit);
+char *copy_name(const char *name);
 BackupStatus choose_files(const BackupFile *files, size_t count, size_t capacity, BackupResult *result);
 void free_backup_files(BackupFile *files, size_t count);
 void free_backup_result(BackupResult *result);

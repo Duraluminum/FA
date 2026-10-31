@@ -127,7 +127,6 @@ Status concatenate_strings(unsigned int seed, size_t count, const char *const *s
     if (order == NULL) return STATUS_ERR_MEMORY;
 
     size_t total = 0, pos = 0;
-    char *text;
     for (size_t i = 0; i < count; i++) {
         size_t length;
 
@@ -151,6 +150,7 @@ Status concatenate_strings(unsigned int seed, size_t count, const char *const *s
         return STATUS_ERR_TOO_LARGE;
     }
 
+    char *text;
     text = malloc(total + 1);
     if (text == NULL) {
         free(order);
@@ -160,14 +160,15 @@ Status concatenate_strings(unsigned int seed, size_t count, const char *const *s
     srand(seed);
     for (size_t i = count; i > 1; i--) {
         size_t j = (size_t)rand() % i;
+        
         size_t temp = order[i-1];
         order[i-1] = order[j];
         order[j] = temp;
     }
 
     for (size_t i = 0; i < count; i++) {
-        size_t j;
-        for (j = 0; strings[order[i]][j] != '\0'; j++) text[pos++] = strings[order[i]][j];
+        for (size_t j = 0; strings[order[i]][j] != '\0'; j++)
+            text[pos++] = strings[order[i]][j];
     }
 
     text[pos] = '\0';

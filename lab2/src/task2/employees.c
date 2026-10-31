@@ -13,7 +13,6 @@ static char *copy_text(const char *text) {
 
     char *copy;
     copy = malloc(length + 1);
-
     if (copy != NULL)
         memcpy(copy, text, length + 1);
 

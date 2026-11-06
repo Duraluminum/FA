@@ -1,0 +1,9 @@
+./task1.out 255 1
+./task1.out 255 2
+./task1.out 4294967295 5
+
+
+./task1.out -1 2
+./task1.out 12 0
+./task1.out 12 6
+./task1.out 12x 3

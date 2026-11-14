@@ -4,7 +4,7 @@ CFLAGS = -std=c99 -Wall -Wextra -pedantic -Iinclude
 BUILD_DIR = build
 SRC_DIR = src
 
-TASKS = 1
+TASKS = 1 2
 
 TARGETS = $(addprefix $(BUILD_DIR)/task, $(addsuffix .out, $(TASKS)))
 

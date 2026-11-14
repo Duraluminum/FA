@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
 #include "bases2.h"
 
 
@@ -12,14 +11,14 @@ int main(int argc, char *argv[]) {
 
     unsigned long long value, r_val;
     if (!parse_unsigned(argv[1], &value) || !parse_unsigned(argv[2], &r_val) || r_val < 1 || r_val > 5) {
-        fprintf(stderr, "Invalid arguments\n");
+        fprintf(stderr, "Invalid arguments. Usage: %s <decimal_number> <r: 1..5>\n", argv[0]);
         return 1;
     }
 
     char *result = NULL;
     BaseStatus status = decimal_power(value, (unsigned int)r_val, &result);
     if (status != BASE_OK) {
-        fprintf(stderr, "Conversion error: %d\n", (int)status);
+        fprintf(stderr, "Conversion error: %d\n", status);
         return 1;
     }
 

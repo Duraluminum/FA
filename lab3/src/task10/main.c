@@ -81,8 +81,8 @@ int main(int argc, char *argv[]) {
         free_tree(root);
     }
 
-    if (line_status < 0) result = 1;
     free(line);
+    if (line_status < 0) result = 1;
     if (fclose(input) != 0) result = 1;
     if (fclose(output) != 0) result = 1;
 

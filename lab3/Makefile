@@ -1,10 +1,10 @@
 CC = gcc
-CFLAGS = -std=c99 -Wall -Wextra -pedantic -Iinclude
+CFLAGS = -std=c99 -Wall -Wextra -pedantic -Iinclude -g
 
 BUILD_DIR = build
 SRC_DIR = src
 
-TASKS = 1 2 10
+TASKS = 1 2 3 4 5 10
 
 TARGETS = $(addprefix $(BUILD_DIR)/task, $(addsuffix .out, $(TASKS)))
 
